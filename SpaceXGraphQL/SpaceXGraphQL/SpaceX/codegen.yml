@@ -1,0 +1,15 @@
+overwrite: true
+schema: "https://api.spacex.land/graphql"
+#documents: "src/**/*.graphql"
+generates:
+  gen/Models.cs:
+    plugins:
+      - "c-sharp"
+    config: 
+      namespaceName: SpaceXGraphQL.SpaceX.gen
+      scalars:
+        timestamptz: DateTime
+        uuid: Guid
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"

@@ -1,0 +1,18 @@
+{
+  "name": "SpaceX",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@graphql-codegen/c-sharp": "^1.18.0",
+    "@graphql-codegen/cli": "1.21.1",
+    "@graphql-codegen/introspection": "1.18.1",
+    "@graphql-codegen/typescript": "1.21.0"
+  },
+  "dependencies": {
+    "graphql": "^15.5.0"
+  },
+  "scripts": {
+    "generate": "graphql-codegen --config codegen.yml"
+  }
+}

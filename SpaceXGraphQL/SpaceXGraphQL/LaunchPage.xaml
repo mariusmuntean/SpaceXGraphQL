@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:SpaceXGraphQL.Converters;assembly=SpaceXGraphQL"
+             x:Class="SpaceXGraphQL.LaunchPage"
+             BackgroundColor="#041727"
+             x:Name="ParentPage">
+
+    <ContentPage.Resources>
+        <converters:GetLastItemConverter x:Key="GetLastItemConverter" />
+    </ContentPage.Resources>
+
+    <ScrollView Padding="20, 0">
+        <StackLayout>
+            <!-- Top image -->
+            <Grid VerticalOptions="Start">
+                <Frame CornerRadius="20"
+                       Padding="0"
+                       HasShadow="True"
+                       IsClippedToBounds="True">
+                    <Image Source="{Binding Launch.links.flickr_images, Converter={StaticResource GetLastItemConverter}}"
+                           HorizontalOptions="FillAndExpand"
+                           BackgroundColor="#384355"
+                           Aspect="AspectFill"
+                           HeightRequest="250" />
+                </Frame>
+
+                <!-- Patch, name and date -->
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Start"
+                             VerticalOptions="Start"
+                             Margin="20">
+                    <Image Source="{Binding Launch.links.mission_patch}"
+                           Aspect="AspectFit"
+                           HeightRequest="40"
+                           WidthRequest="40" />
+                    <StackLayout>
+
+                        <Label Text="{Binding Launch.mission_name}"
+                               TextColor="White"
+                               FontAttributes="Bold"
+                               FontSize="Large"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center" />
+                        <Label Text="{Binding Launch.launch_date_utc}"
+                               TextColor="LightGray"
+                               FontAttributes="Bold"
+                               FontSize="Micro"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center" />
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+
+            <!-- Article link -->
+            <Label VerticalOptions="End"
+                   HorizontalOptions="End"
+                   Margin="0, 5, 20,0">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Article Link"
+                              TextColor="RoyalBlue"
+                              FontSize="Small"
+                              FontAttributes="Bold">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ArticleLinkTappedCommand}" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <!-- Description -->
+            <Label Text="Description"
+                   TextColor="#FF543D"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   Margin="0, 20,0,5" />
+
+            <Label Text="{Binding Launch.details}"
+                   FontSize="Body"
+                   TextColor="White" />
+
+            <!-- Media -->
+            <Label Text="Media"
+                   TextColor="#FF543D"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   Margin="0, 20,0,5" />
+            <StackLayout BindableLayout.ItemsSource="{Binding Launch.links.flickr_images}">
+                <BindableLayout.EmptyView>
+                    <Label Text="Loading ..."
+                           TextColor="White"
+                           HorizontalOptions="Center"
+                           FontSize="Small" />
+                </BindableLayout.EmptyView>
+
+                <!-- Images -->
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Share"
+                                               BackgroundColor="#FF543D"
+                                               Command="{Binding Source={x:Reference ParentPage}, Path=BindingContext.ImageTappedCommand}"
+                                               CommandParameter="{Binding .}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Frame CornerRadius="20"
+                                   Padding="0"
+                                   Margin="0,0,0,5"
+                                   HasShadow="True"
+                                   IsClippedToBounds="True">
+                                <Image Source="{Binding .}"
+                                       HorizontalOptions="FillAndExpand"
+                                       BackgroundColor="#384355"
+                                       Aspect="AspectFill"
+                                       HeightRequest="250" />
+                            </Frame>
+                        </SwipeView>
+
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

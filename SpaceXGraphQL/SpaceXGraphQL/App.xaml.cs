@@ -12,7 +12,7 @@ namespace SpaceXGraphQL
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new LaunchesPage());
         }
 
         protected override void OnStart()

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:SpaceXGraphQL.Behaviors;assembly=SpaceXGraphQL"
+             x:Class="SpaceXGraphQL.LaunchesPage"
+             BackgroundColor="#384355">
+    <Grid>
+
+        <!-- Loading -->
+        <ActivityIndicator IsVisible="{Binding IsLoading}"
+                           IsRunning="True"
+                           Color="#FF543D"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           WidthRequest="120"
+                           HeightRequest="120" />
+
+        <!-- Content -->
+        <CollectionView ItemsSource="{Binding Launches}"
+                        ItemSizingStrategy="MeasureFirstItem"
+                        SelectionMode="Single"
+                        SelectionChanged="OnLaunchSelected"
+                        RemainingItemsThreshold="5"
+                        RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}"
+                        Margin="10">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="5.0" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame CornerRadius="15"
+                           Padding="0"
+                           Margin="5,0,5,0"
+                           HasShadow="False"
+                           BackgroundColor="#041727"
+                           IsClippedToBounds="True">
+                        <Grid RowDefinitions="*,*"
+                              ColumnDefinitions="Auto,*"
+                              HeightRequest="80">
+                            
+                            <!-- Mission patch -->
+                            <Image HeightRequest="60"
+                                   WidthRequest="60"
+                                   Margin="10"
+                                   Grid.Row="0"
+                                   Grid.Column="0"
+                                   Grid.RowSpan="2"
+                                   Aspect="AspectFit"
+                                   HorizontalOptions="CenterAndExpand"
+                                   VerticalOptions="CenterAndExpand"
+                                   Source="{Binding links.mission_patch}" />
+                            <Label Grid.Row="0"
+                                   Grid.Column="1"
+                                   VerticalOptions="End"
+                                   TextColor="White"
+                                   FontAttributes="Bold"
+                                   Text="{Binding mission_name}" />
+                            <Label Grid.Row="1"
+                                   Grid.Column="1"
+                                   FontSize="Small"
+                                   TextColor="#FF543D"
+                                   VerticalOptions="Start"
+                                   Text="{Binding launch_date_utc}" />
+                            <BoxView Grid.Row="0"
+                                     Grid.RowSpan="2"
+                                     Grid.Column="1"
+                                     HeightRequest="10"
+                                     WidthRequest="10"
+                                     Margin="20"
+                                     CornerRadius="5"
+                                     HorizontalOptions="End"
+                                     VerticalOptions="Center"
+                                     Color="#FF543D"
+                                     IsVisible="False">
+                                <BoxView.Behaviors>
+                                    <behaviors:PulseBehavior />
+                                </BoxView.Behaviors>
+                                <BoxView.Triggers>
+                                    <DataTrigger TargetType="BoxView"
+                                                 Binding="{Binding Path=upcoming}"
+                                                 Value="True">
+                                        <DataTrigger.Setters>
+                                            <Setter Property="IsVisible" Value="True" />
+                                        </DataTrigger.Setters>
+                                    </DataTrigger>
+                                </BoxView.Triggers>
+                            </BoxView>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

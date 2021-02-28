@@ -4,5 +4,12 @@
              x:Class="SpaceXGraphQL.App">
     <Application.Resources>
 
+        <!-- Styles -->
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor" Value="#384355"/>
+            <Setter Property="BarTextColor" Value="#FF543D"/>
+        </Style>
+        <!-- Styles -->
+        
     </Application.Resources>
 </Application>

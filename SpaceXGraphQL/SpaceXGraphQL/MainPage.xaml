@@ -2,13 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:SpaceXGraphQL"
-             x:Class="SpaceXGraphQL.MainPage">
+             x:Class="SpaceXGraphQL.MainPage"
+             >
 
     <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+        <Button Text="Launches"
+                TextColor="#FF543D"
+                Clicked="Button_OnClicked"></Button>
     </StackLayout>
 
 </ContentPage>
